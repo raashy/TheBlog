@@ -1,0 +1,30 @@
+---
+import NavItem from "./NavItem.astro";
+import { Icon } from "astro-icon";
+const navItems = [
+  {
+    title: "Home",
+    link: "/",
+  },
+  {
+    title: "About",
+    link: "/about",
+  },
+  {
+    title: "Contact",
+    link: "/contact",
+  },
+];
+---
+
+<nav class="flex z-10 sticky gap-8 items-center w-full left-0 top-0 py-6 bg-white bg-opacity-80 backdrop-blur-lg">
+  <h1 class="font-bold text-2xl">TheBlog.</h1>
+
+  <ul class="gap-5 hidden md:flex">
+    {navItems.map((item) => <NavItem link={item.link} title={item.title} />)}
+  </ul>
+
+  <button class="ml-auto">
+    <Icon name="ph:magnifying-glass-bold" class="w-6 text-black" />
+  </button>
+</nav>

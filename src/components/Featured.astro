@@ -1,0 +1,29 @@
+---
+interface Props {
+  title: string;
+  image: string;
+  date: string;
+}
+
+const { title, image, date } = Astro.props;
+
+const formattedDate = new Date(date).toLocaleDateString("en-US", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+});
+---
+
+<a class="rounded-2xl overflow-hidden relative p-8 flex items-end justify-end flex-col shadow-lg md:col-span-2 md:row-span-2">
+  <img src={image} alt="Featured article" class="absolute -z-10 top-0 left-0 w-full h-full object-cover object-center select-none" draggable="false" />
+
+  <h1 class="text-3xl md:text-5xl text-white font-bold text-end">{title}</h1>
+
+  <span class="text-white text-base md:text-2xl font-medium"> {formattedDate}, John Doe</span>
+</a>
+
+<style>
+  a {
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.5) 150%);
+  }
+</style>
