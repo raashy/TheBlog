@@ -24,6 +24,7 @@ pnpm-debug.log*
 localhost-key.pem
 localhost.pem
 
+package-lock.json
+
 # vercel
 .vercel/
-.vercel/output/
