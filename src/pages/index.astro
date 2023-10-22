@@ -6,26 +6,28 @@ import { useStoryblokApi } from "@storyblok/astro";
 
 const storyblokApi = useStoryblokApi();
 
-console.log(useStoryblokApi);
-
 const { data } = await storyblokApi.getStories({
   version: "published",
-  starts_with: "articles/",
   per_page: 10,
   sort_by: "created_at:desc",
 });
+
+const featured = data.stories.find(({ content }) => content.featured);
+const stories = data.stories.filter(({ content }) => !content.featured);
 ---
 
 <Layout title="Welcome to Astro.">
   <section class:list={["pt-2 pb-6", "grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3", "auto-rows-[15rem] md:auto-rows-[18rem]", "gap-6 md:gap-8"]}>
     {
-      data.stories.map((story) =>
-        story.content.Featured === "true" ? (
-          <Featured title={story.content.Title} image={story.content.Image} date={story.published_at || story.created_at} />
-        ) : (
-          <ArticleCard title={story.content.Title} image={story.content.Image} date={story.published_at || story.created_at} />
-        )
+      featured && (
+        <Featured title={featured.name} image={featured.content.image} slug={featured.full_slug} date={featured.published_at || featured.created_at} />
       )
+    }
+
+    {
+      stories.map(({ name, content: { image }, full_slug, published_at, created_at }) => (
+        <ArticleCard title={name} image={image} date={published_at || created_at} slug={full_slug} />
+      ))
     }
   </section>
 </Layout>

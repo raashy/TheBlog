@@ -1,0 +1,24 @@
+---
+import { storyblokEditable, renderRichText } from "@storyblok/astro";
+import type { ArticleBlok } from "./types";
+
+interface Props {
+  blok: ArticleBlok;
+  date: string;
+}
+
+const { blok, date } = Astro.props;
+
+const { content, image, title, fullTitle } = blok;
+
+const formatDate = (date: string) => {
+  return new Date(date).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+};
+---
+
+<article {...storyblokEditable(blok)} class="mx-auto max-w-[50rem] prose lg:prose-lg mt-8">
+  <img src={image} alt={fullTitle} />
+  <span class="text-gray-500">{formatDate(date)}</span>
+  <br /><br />
+  <Fragment set:html={renderRichText(content)} />
+</article>

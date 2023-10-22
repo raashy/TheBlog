@@ -3,9 +3,10 @@ interface Props {
   title: string;
   image: string;
   date: string;
+  slug: string;
 }
 
-const { title, image, date } = Astro.props;
+const { title, image, date, slug } = Astro.props;
 
 const formattedDate = new Date(date).toLocaleDateString("en-US", {
   year: "numeric",
@@ -14,16 +15,16 @@ const formattedDate = new Date(date).toLocaleDateString("en-US", {
 });
 ---
 
-<a class="rounded-2xl overflow-hidden relative p-8 flex items-end justify-end flex-col shadow-lg">
+<a class="rounded-2xl overflow-hidden relative py-6 px-8 flex items-end justify-end flex-col shadow-lg" href={`${slug}`}>
   <img src={image} alt="Article cover image" class="absolute -z-10 top-0 left-0 w-full h-full object-cover object-center select-none" draggable="false" />
 
-  <h1 class="text-3xl lg:text-4xl text-white font-bold text-end">{title}</h1>
+  <h1 class="text-xl lg:text-3xl text-white font-bold text-end">{title}</h1>
 
-  <span class="text-white text-base md:text-lg mt-2"> {formattedDate}, John Doe</span>
+  <span class="text-white text-sm md:text-base mt-1"> {formattedDate}, John Doe</span>
 </a>
 
 <style>
   a {
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.5) 150%);
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.5) 100%);
   }
 </style>
